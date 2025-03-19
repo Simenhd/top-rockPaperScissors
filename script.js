@@ -80,7 +80,7 @@ function playGame() {
         } else return "Tie"
     };
 
-    alert(`The game has ended with the score:\n You: ${humanScore} - Human: ${computerScore}\n ${determineWinner(humanScore,computerScore)}!`);
+    alert(`The game has ended with the score:\nYou: ${humanScore} - Human: ${computerScore}\n${determineWinner(humanScore,computerScore)}!`);
 };
 
 playGame();
