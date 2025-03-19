@@ -6,12 +6,14 @@ function getComputerChoice() {
     return choices[Math.floor(Math.random() * 3)];
 };
 
+// Get human choice
 function getHumanChoice() {
     let choices = ["rock", "paper", "scissors"];
     let choice;
 
     while (true) {
         choice = prompt("Rock, Paper, Scissors?").toLowerCase();
+        // validate user input
         if (choices.includes(choice)) {
             return choice;
         }
@@ -30,12 +32,14 @@ function playGame() {
     
         if (humanChoice === computerChoice) return 'Tie';
         
+        // object to store game rules where key = choice and value = what choice wins against  
         const wins = {
             'rock': 'scissors',
             'paper': 'rock',
             'scissors': 'paper'
         };
         
+        // return round results
         return wins[humanChoice] === computerChoice ? 'Player' : 'Computer';
     };
 
