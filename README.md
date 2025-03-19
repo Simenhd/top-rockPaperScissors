@@ -4,7 +4,7 @@
 The game is Rock, Paper, Scissors game played against the computer.
 
 ## How to Play
-On launch, the user is prompted to choose between **Rock**, **Paper**, or **Scissors**. After selection, the computer's choice and the result of the round are displayed. Each game consists of **5 rounds**, and at the end of the game, the final result is shown.  
+On [launch](https://simenhd.github.io/top-rockPaperScissors/), the user is prompted to choose between **Rock**, **Paper**, or **Scissors**. After selection, the computer's choice and the result of the round are displayed. Each game consists of **5 rounds**, and at the end of the game, the final result is shown.  
 **Refresh** the page to restart the game.
 
 ## Project Structure
