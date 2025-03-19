@@ -39,6 +39,7 @@ function playGame() {
         return wins[humanChoice] === computerChoice ? 'Player' : 'Computer';
     };
 
+
     for (let i = 0; i < totalRounds; i++) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
@@ -80,7 +81,7 @@ function playGame() {
         } else return "Tie"
     };
 
-    alert(`The game has ended with the score:\nYou: ${humanScore} - Human: ${computerScore}\n${determineWinner(humanScore,computerScore)}!`);
+    alert(`The game has ended with the score:\nYou: ${humanScore} - Computer: ${computerScore}\n${determineWinner(humanScore,computerScore)}!`);
 };
 
 playGame();
