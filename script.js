@@ -1,15 +1,22 @@
-
+const totalRounds = 5;
 
 // Get computer choice
 function getComputerChoice() {
-    const choices = ['Rock', 'Paper', 'Scissors'];
+    const choices = ['rock', 'paper', 'scissors'];
     return choices[Math.floor(Math.random() * 3)];
 };
 
 function getHumanChoice() {
-    let choice = prompt("Rock, Paper, Scissors?");
-    return choice
+    let choices = ["rock", "paper", "scissors"];
+    let choice;
 
+    while (true) {
+        choice = prompt("Rock, Paper, Scissors?").toLowerCase();
+        if (choices.includes(choice)) {
+            return choice;
+        }
+        alert("Invalid input. Please enter Rock, Paper, or Scissors.");
+    }
 };
 
 function playGame() {
@@ -20,8 +27,6 @@ function playGame() {
 
 
     function playRound(humanChoice, computerChoice) {
-        humanChoice = humanChoice.toLowerCase();
-        computerChoice = computerChoice.toLowerCase();
     
         if (humanChoice === computerChoice) return 'Tie';
         
@@ -34,7 +39,7 @@ function playGame() {
         return wins[humanChoice] === computerChoice ? 'Player' : 'Computer';
     };
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < totalRounds; i++) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
 
@@ -43,21 +48,39 @@ function playGame() {
         switch (roundResult) {
             case 'Player':
                 humanScore += 1;
-                console.log("Player wins");
+                round += 1
+                alert(
+                    `Player wins!\nYou: ${humanScore} - Computer: ${computerScore}\n${totalRounds - round} rounds left
+                    `
+                );
                 break;
             case 'Computer':
                 computerScore +=1;
-                console.log("Computer wins");
+                round += 1
+                alert(
+                    `Computer wins!\nYou: ${humanScore} - Computer: ${computerScore}\n${totalRounds - round} rounds left
+                    `
+                );
                 break;
             default:
-                "Tie"
+                round += 1
+                alert(
+                    `Tie!\nYou: ${humanScore} - Computer:${computerScore}\n${totalRounds - round} rounds left
+                    `
+                );
                 break;
         }
     };
 
-    console.log(humanScore);
-    console.log(computerScore);
+    function determineWinner(humanScore, computerScore) {
+        if (humanScore > computerScore) {
+            return "Human wins";
+        } else if (humanScore < computerScore) {
+            return "Computer wins";
+        } else return "Tie"
+    };
 
+    alert(`The game has ended with the score:\n You: ${humanScore} - Human: ${computerScore}\n ${determineWinner(humanScore,computerScore)}!`);
 };
 
 playGame();
