@@ -1,5 +1,6 @@
 
 
+
 const totalRounds = 5;
 let round = 0;
 let humanScore = 0;
@@ -12,14 +13,22 @@ const playerScoreDisplay = document.querySelector('#player');
 const computerScoreDisplay = document.querySelector('#computer');
 const roundDisplay = document.querySelector('#roundnum');
 
-const gameOverDisplay = document.querySelector('.container#gameOver');
+const descriptiveText = document.querySelector('.descriptiveContainer p');
+const resetGameDiv = document.querySelector('.container#gameOver');
 const resetGameBtn = document.querySelector('button#resetGame');
-const resetGameTextbox = document.querySelector('#gameOver p')
 
 // Get computer choice
 function getComputerChoice() {
     const choices = ['rock', 'paper', 'scissors'];
-    return choices[Math.floor(Math.random() * 3)];
+    let computerSelection = choices[Math.floor(Math.random() * 3)];
+
+    computerSelectionBtns.forEach(button => {
+        button.classList.remove('highlightComputer');
+        if (button.id === computerSelection) {
+            button.classList.add('highlightComputer');
+        }
+    });
+    return computerSelection;
 };
 
 
@@ -41,11 +50,14 @@ function playRound(humanChoice, computerChoice) {
     switch (roundResult) {
     case 'Player':
         humanScore += 1;
+        descriptiveText.textContent = `${humanChoice} beats ${computerChoice}. You win!`
         break;
     case 'Computer':
         computerScore +=1;
+        descriptiveText.textContent = `${humanChoice} looses to ${computerChoice}. Computer wins!`
         break;
     default:
+        descriptiveText.textContent = `${humanChoice} ties with ${computerChoice}. It's a tie!`
         break;
     };
 
@@ -54,6 +66,7 @@ function playRound(humanChoice, computerChoice) {
 
     
 };
+
 
 // Reset game
 function resetGame() {
@@ -72,7 +85,9 @@ function resetGame() {
     computerSelectionBtns.forEach(btn => btn.disabled = false);
 
     // Hide game over display
-    gameOverDisplay.style.display = "none";
+    resetGameDiv.style.display = "none";
+
+    descriptiveText.textContent = "Select rock, paper or scissors to start a round!"
     
 }
 
@@ -81,9 +96,14 @@ resetGameBtn.addEventListener('click', (e) => {
 });
 
 
-
 userSelectionBtns.forEach(button => {
     button.addEventListener('click', (e) => {
+        // Remove highlight from all buttons
+        userSelectionBtns.forEach(btn => btn.classList.remove('highlightUser'));
+
+        // Highlight the selected button
+        e.currentTarget.classList.add('highlightUser');
+        
         // User selection
         const humanChoice = e.currentTarget.id;
 
@@ -100,17 +120,20 @@ userSelectionBtns.forEach(button => {
             userSelectionBtns.forEach(btn => btn.disabled = true);
             computerSelectionBtns.forEach(btn => btn.disabled = true);
 
-            gameOverDisplay.style.display = "block";
-
             let winnerText;
 
             if(humanScore > computerScore) {
-                winnerText = `The game has ended - you win! :D...\nDo you want to play again?`
+                descriptiveText.textContent = `The game has ended - you win! :D...\nDo you want to play again?`
             } else if (humanScore < computerScore) {
-                 winnerText = `The game has ended - the commputer wins :(...\nDo you want to play again?`
-            } else {winnerText = `The game has ended with a tie - no one wins...\nDo you want to play again?`}
+                descriptiveText.textContent = `The game has ended - the commputer wins :(...\nDo you want to play again?`
+            } else {descriptiveText.textContent = `The game has ended with a tie - no one wins...\nDo you want to play again?`}
 
-            resetGameTextbox.textContent = winnerText
+            resetGameDiv.style.display = 'block';
+
+            // Remove highlight from all buttons
+            userSelectionBtns.forEach(btn => btn.classList.remove('highlightUser'));
+
+            computerSelectionBtns.forEach(btn => btn.classList.remove('highlightComputer'));
 
         }
     });

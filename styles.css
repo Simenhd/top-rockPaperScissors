@@ -76,6 +76,11 @@ body {
         float: right;
     }
 
+    /* Descriptive container */
+    .descriptiveContainer {
+        font-size: 1.4rem;
+        height: 100px;
+    }
 
     /* Game */
 
@@ -86,6 +91,7 @@ body {
         flex-direction: column;
         justify-content: flex-start; 
         align-items: center;
+        margin-top: 50px;
     }
 
     .scoreboard-container {
@@ -199,6 +205,16 @@ body {
         background-color: #e6a503;
         box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
       }
+
+    .highlightUser {
+        background-color: #4CAF50; 
+        color: white;
+    }
+
+    .highlightComputer {
+        background-color: #4CAF50; 
+        color: red;
+    }
 
       /* Footer */
 
