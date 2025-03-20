@@ -1,13 +1,20 @@
+
+
 const totalRounds = 5;
 let round = 0;
 let humanScore = 0;
 let computerScore = 0;
 
-const userSelectionBtns = document.querySelector(".game-grid");
-const result = document.querySelector(".gameResult");
-const playerScoreDisplay = document.querySelector('#Player');
-const computerScoreDisplay = document.querySelector('#Computer');
+// Select DOM elements
+const userSelectionBtns = document.querySelectorAll("#player .game-grid button");
+const computerSelectionBtns = document.querySelectorAll("#pc .game-grid button");
+const playerScoreDisplay = document.querySelector('#player');
+const computerScoreDisplay = document.querySelector('#computer');
 const roundDisplay = document.querySelector('#roundnum');
+
+const gameOverDisplay = document.querySelector('.container#gameOver');
+const resetGameBtn = document.querySelector('button#resetGame');
+const resetGameTextbox = document.querySelector('#gameOver p')
 
 // Get computer choice
 function getComputerChoice() {
@@ -15,7 +22,9 @@ function getComputerChoice() {
     return choices[Math.floor(Math.random() * 3)];
 };
 
+
 function playRound(humanChoice, computerChoice) {
+    if (round === 5) return "Game over";
     
     if (humanChoice === computerChoice) return 'Tie';
     
@@ -48,90 +57,61 @@ function playRound(humanChoice, computerChoice) {
 
 // Reset game
 function resetGame() {
-    playerScore = 0;
+    humanScore = 0;
     computerScore = 0;
     round = 0;
+
+    // Reset scoreboard content
     playerScoreDisplay.textContent = '0';
     computerScoreDisplay.textContent = '0';
     roundDisplay.textContent = '0';
+
+    // Enable player buttons
+    
+    userSelectionBtns.forEach(btn => btn.disabled = false);
+    computerSelectionBtns.forEach(btn => btn.disabled = false);
+
+    // Hide game over display
+    gameOverDisplay.style.display = "none";
     
 }
 
-
-
-userSelectionBtns.addEventListener('click', (e) => {
-    // User selection
-    const button = e.target.closest("button");
-    if (!button) return;
-    const humanChoice = button.id;
-
-    // Computer selection
-    const computerChoice = getComputerChoice();
-
-    // Update round counter and display
-    round += 1
-    roundDisplay.textContent = round
-
-    playRound(humanChoice,computerChoice);
-
-
-    
-    
-
-
+resetGameBtn.addEventListener('click', (e) => {
+    resetGame();
 });
 
 
 
+userSelectionBtns.forEach(button => {
+    button.addEventListener('click', (e) => {
+        // User selection
+        const humanChoice = e.currentTarget.id;
 
-// function playGame() {
-//     let humanScore = 0;
-//     let computerScore = 0;
-//     let round = 0;
+        // Computer selection
+        const computerChoice = getComputerChoice();
 
-//     const humanSelection = getHumanChoice();
-//     const computerSelection = getComputerChoice();
+        // Update round counter and display
+        round += 1;
+        roundDisplay.textContent = round;
 
-//     let roundResult = playRound(humanSelection, computerSelection);
+        playRound(humanChoice, computerChoice);
 
-//     switch (roundResult) {
-//         case 'Player':
-//             humanScore += 1;
-//             round += 1
-//             alert(
-//                 `Player wins!\nYou: ${humanScore} - Computer: ${computerScore}\n${totalRounds - round} rounds left
-//                 `
-//             );
-//             break;
-//         case 'Computer':
-//             computerScore +=1;
-//             round += 1
-//             alert(
-//                 `Computer wins!\nYou: ${humanScore} - Computer: ${computerScore}\n${totalRounds - round} rounds left
-//                 `
-//             );
-//             break;
-//         default:
-//             round += 1
-//             alert(
-//                 `Tie!\nYou: ${humanScore} - Computer:${computerScore}\n${totalRounds - round} rounds left
-//                 `
-//             );
-//             break;
-        
-//     };
+        if (round === 5) {
+            userSelectionBtns.forEach(btn => btn.disabled = true);
+            computerSelectionBtns.forEach(btn => btn.disabled = true);
 
-//     function determineWinner(humanScore, computerScore) {
-//         if (humanScore > computerScore) {
-//             return "Human wins";
-//         } else if (humanScore < computerScore) {
-//             return "Computer wins";
-//         } else return "Tie"
-//     };
+            gameOverDisplay.style.display = "block";
 
-//     alert(`The game has ended with the score:\nYou: ${humanScore} - Computer: ${computerScore}\n${determineWinner(humanScore,computerScore)}!`);
-// };
+            let winnerText;
 
-// playGame();
+            if(humanScore > computerScore) {
+                winnerText = `The game has ended - you win! :D...\nDo you want to play again?`
+            } else if (humanScore < computerScore) {
+                 winnerText = `The game has ended - the commputer wins :(...\nDo you want to play again?`
+            } else {winnerText = `The game has ended with a tie - no one wins...\nDo you want to play again?`}
 
+            resetGameTextbox.textContent = winnerText
 
+        }
+    });
+});
