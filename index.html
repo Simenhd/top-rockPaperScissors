@@ -1,71 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rock, Paper, Scissors</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors</title>
 
-  <!-- CSS Reference -->
-  <link rel="stylesheet" href="styles.css" />
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
 
-  <!-- JS Reference -->
+  <!-- JavaScript -->
   <script defer src="script.js"></script>
-
 </head>
 <body>
-    <!-- Game -->
-    <main>
-      <div class="scoreboard-container">
-          <div class="scoreboard">
-            <h2>Player</h2>
-            <div class="scorecard" id="player">0</div>
-          </div>
-          <div class="roundcounter"> 
-            <div id="rounddisplay">
-              <p>Round</p>
-              <p id="roundnum">0<p>
-            </div>
-          </div>
-          <div class="scoreboard">
-            <h2>Computer</h2>
-            <div class="scorecard" id="computer">0</div>
-        </div>
-      </div>
-      <div class="descriptiveContainer">
-        <p>Select rock, paper or scissors to start a round!</p>
-      </div>
-      <div class="container" id="gameOver">
-        <p></p>
-        <button id="resetGame">Play again</button>
-      </div>
-      <div class="container">
-        <div class="game-container" id="player">
-          <div class="game-grid">
-            <button id="rock">Rock</button>
-            <button id="paper">Paper</button>
-            <button id="scissors">Scissors</button>
-          </div>
-        </div>
+  
+  <!-- Main content area -->
+  <main>
 
-        <div class="game-container" id="pc">
-          <div class="game-grid">
-            <button id="rock">Rock</button>
-            <button id="paper">Paper</button>
-            <button id="scissors">Scissors</button>
+    <!-- Scoreboard (stays at the top) -->
+    <section class="scoreboard-section">
+      <div class="scoreboard player-scoreboard">
+        <h2>Player</h2>
+        <div id="player-score" class="score-display">0</div>
+      </div>
+
+      <div class="round-counter"> 
+        <p>Round</p>
+        <p id="round-number">0</p>
+      </div>
+
+      <div class="scoreboard computer-scoreboard">
+        <h2>Computer</h2>
+        <div id="computer-score" class="score-display">0</div>
+      </div>
+    </section>
+
+    <!-- New wrapper to center content in the middle -->
+    <div class="game-content">
+
+      <!-- Game Instructions -->
+      <section class="game-instructions">
+        <p id="game-message">Select Rock, Paper, or Scissors to start a round!</p>
+      </section>
+
+      <!-- Game Over and Restart Controls -->
+      <section id="game-over-section" class="hidden">
+        <p id="final-result-message"></p>
+        <button id="restart-button">Play Again</button>
+      </section>
+
+      <!-- Game Control Section -->
+      <section class="game-controls">
+
+        <!-- Player Choices -->
+        <article id="player-controls" class="choice-container">
+          <h3>Player Choices</h3>
+          <div class="choice-grid">
+            <button id="player-rock" aria-label="Rock">Rock</button>
+            <button id="player-paper" aria-label="Paper">Paper</button>
+            <button id="player-scissors" aria-label="Scissors">Scissors</button>
           </div>
-        </div>
+        </article>
+
+        <!-- Computer Choices -->
+        <article id="computer-controls" class="choice-container">
+          <h3>Computer Choices</h3>
+          <div class="choice-grid">
+            <button id="computer-rock" aria-label="Computer Rock" disabled>Rock</button>
+            <button id="computer-paper" aria-label="Computer Paper" disabled>Paper</button>
+            <button id="computer-scissors" aria-label="Computer Scissors" disabled>Scissors</button>
+          </div>
+        </article>
+
+      </section>
+
     </div>
-    </main>
 
+  </main>
 
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      Copyright © The Odin Project 2025
+    </div>
+  </footer>
 
-    <!-- Footer -->
-    <footer id="footer">
-      <div class="footer-right">
-          Copyright © The Odin Project 2025
-      </div>
-    </footer>
-  
-  
 </body>
 </html>
